@@ -9,7 +9,6 @@ export default function Hero() {
   const root = useRef(null);
   const imageRef = useRef(null);
   const glowRef = useRef(null);
-  const titleRef = useRef(null);
   const visualRef = useRef(null);
 
   useEffect(() => {
@@ -23,7 +22,7 @@ export default function Hero() {
       ========================================================= */
 
       gsap.set(".hero-kicker", {
-        y: 25,
+        y: 20,
         opacity: 0,
       });
 
@@ -37,22 +36,22 @@ export default function Hero() {
       });
 
       gsap.set(".hero-description", {
-        y: 25,
+        y: 20,
         opacity: 0,
       });
 
       gsap.set(".hero-actions", {
-        y: 25,
+        y: 20,
         opacity: 0,
       });
 
       gsap.set(".hero-visual", {
-        x: 80,
+        y: 35,
         opacity: 0,
       });
 
       gsap.set(".hero-rail", {
-        y: 40,
+        y: 25,
         opacity: 0,
       });
 
@@ -62,7 +61,7 @@ export default function Hero() {
       });
 
       /* =========================================================
-         INTRO TIMELINE
+         INTRO
       ========================================================= */
 
       const intro = gsap.timeline({
@@ -73,59 +72,50 @@ export default function Hero() {
 
       intro
         .from(".hero-background-image", {
-          scale: 1.16,
-          duration: 2.2,
+          scale: 1.12,
+          duration: 2,
           ease: "power3.out",
         })
         .to(
           ".hero-top-line",
           {
             scaleX: 1,
-            duration: 1,
+            duration: 0.9,
           },
-          "-=1.5"
+          "-=1.4"
         )
         .to(
           ".hero-kicker",
           {
             y: 0,
             opacity: 1,
-            duration: 0.8,
+            duration: 0.7,
           },
-          "-=0.5"
+          "-=0.45"
         )
         .to(
           ".hero-title-line",
           {
             clipPath: "inset(0 0 0% 0)",
-            duration: 0.9,
-            stagger: 0.08,
+            duration: 0.75,
+            stagger: 0.07,
             ease: "power3.inOut",
           },
-          "-=0.45"
+          "-=0.35"
         )
         .to(
           ".hero-title-inner",
           {
             yPercent: 0,
             opacity: 1,
-            duration: 1.15,
-            stagger: 0.08,
+            duration: 1,
+            stagger: 0.07,
             ease: "power4.out",
           },
-          "-=0.75"
+          "-=0.6"
         )
         .to(
           ".hero-description",
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-          },
-          "-=0.65"
-        )
-        .to(
-          ".hero-actions",
           {
             y: 0,
             opacity: 1,
@@ -134,49 +124,50 @@ export default function Hero() {
           "-=0.55"
         )
         .to(
+          ".hero-actions",
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.65,
+          },
+          "-=0.45"
+        )
+        .to(
           ".hero-visual",
           {
-            x: 0,
+            y: 0,
             opacity: 1,
-            duration: 1.25,
+            duration: 0.9,
             ease: "power3.out",
           },
-          "-=1"
+          "-=0.65"
         )
         .to(
           ".hero-rail",
           {
             y: 0,
             opacity: 1,
-            duration: 0.8,
+            duration: 0.65,
           },
-          "-=0.7"
+          "-=0.4"
         );
 
       /* =========================================================
-         FLOATING WORD
+         FLOATING
       ========================================================= */
 
       if (!reduceMotion) {
         gsap.to(".title-accent", {
-          y: -7,
-          duration: 2.4,
+          y: -6,
+          duration: 2.5,
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut",
         });
 
         gsap.to(".hero-image-card", {
-          y: -8,
+          y: -6,
           duration: 4,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
-
-        gsap.to(".hero-image-number", {
-          y: 6,
-          duration: 3,
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut",
@@ -192,13 +183,13 @@ export default function Hero() {
       }
 
       /* =========================================================
-         IMAGE PARALLAX
+         DESKTOP SCROLL
       ========================================================= */
 
-      if (!reduceMotion) {
+      if (!reduceMotion && imageRef.current && root.current) {
         gsap.to(imageRef.current, {
-          yPercent: 14,
-          scale: 1.12,
+          yPercent: 12,
+          scale: 1.1,
           ease: "none",
           scrollTrigger: {
             trigger: root.current,
@@ -209,35 +200,23 @@ export default function Hero() {
         });
 
         gsap.to(".hero-main", {
-          yPercent: -12,
-          ease: "none",
-          scrollTrigger: {
-            trigger: root.current,
-            start: "25% top",
-            end: "bottom top",
-            scrub: 1,
-          },
-        });
-
-        gsap.to(".hero-visual", {
           yPercent: -8,
-          rotate: -2,
           ease: "none",
           scrollTrigger: {
             trigger: root.current,
-            start: "top top",
+            start: "20% top",
             end: "bottom top",
             scrub: 1,
           },
         });
 
         gsap.to(".hero-rail", {
-          y: 80,
+          y: 60,
           opacity: 0,
           ease: "none",
           scrollTrigger: {
             trigger: root.current,
-            start: "50% top",
+            start: "55% top",
             end: "bottom top",
             scrub: 1,
           },
@@ -245,38 +224,38 @@ export default function Hero() {
       }
 
       /* =========================================================
-         MOUSE PARALLAX
+         MOUSE EFFECT
       ========================================================= */
 
-      const moveImageX = gsap.quickTo(imageRef.current, "x", {
-        duration: 1.2,
+      const imageX = imageRef.current ? gsap.quickTo(imageRef.current, "x", {
+        duration: 1.1,
         ease: "power3.out",
-      });
+      }) : () => {};
 
-      const moveImageY = gsap.quickTo(imageRef.current, "y", {
-        duration: 1.2,
+      const imageY = imageRef.current ? gsap.quickTo(imageRef.current, "y", {
+        duration: 1.1,
         ease: "power3.out",
-      });
+      }) : () => {};
 
-      const moveGlowX = gsap.quickTo(glowRef.current, "x", {
-        duration: 0.9,
+      const glowX = glowRef.current ? gsap.quickTo(glowRef.current, "x", {
+        duration: 0.8,
         ease: "power3.out",
-      });
+      }) : () => {};
 
-      const moveGlowY = gsap.quickTo(glowRef.current, "y", {
-        duration: 0.9,
+      const glowY = glowRef.current ? gsap.quickTo(glowRef.current, "y", {
+        duration: 0.8,
         ease: "power3.out",
-      });
+      }) : () => {};
 
-      const moveVisualX = gsap.quickTo(visualRef.current, "x", {
-        duration: 1.3,
+      const visualX = visualRef.current ? gsap.quickTo(visualRef.current, "x", {
+        duration: 1.1,
         ease: "power3.out",
-      });
+      }) : () => {};
 
-      const moveVisualY = gsap.quickTo(visualRef.current, "y", {
-        duration: 1.3,
+      const visualY = visualRef.current ? gsap.quickTo(visualRef.current, "y", {
+        duration: 1.1,
         ease: "power3.out",
-      });
+      }) : () => {};
 
       const handleMouseMove = (event) => {
         if (window.innerWidth < 768 || reduceMotion) return;
@@ -284,14 +263,14 @@ export default function Hero() {
         const x = event.clientX / window.innerWidth - 0.5;
         const y = event.clientY / window.innerHeight - 0.5;
 
-        moveImageX(x * 22);
-        moveImageY(y * 16);
+        imageX(x * 18);
+        imageY(y * 12);
 
-        moveGlowX(event.clientX - 250);
-        moveGlowY(event.clientY - 250);
+        glowX(event.clientX - 250);
+        glowY(event.clientY - 250);
 
-        moveVisualX(x * -12);
-        moveVisualY(y * -8);
+        visualX(x * -8);
+        visualY(y * -6);
       };
 
       window.addEventListener("mousemove", handleMouseMove);
@@ -300,29 +279,29 @@ export default function Hero() {
          MAGNETIC BUTTONS
       ========================================================= */
 
-      const magneticButtons =
-        root.current.querySelectorAll(".magnetic");
+      const buttons = root.current?.querySelectorAll(".magnetic") || [];
 
-      magneticButtons.forEach((button) => {
+      buttons.forEach((button) => {
         const xTo = gsap.quickTo(button, "x", {
-          duration: 0.45,
+          duration: 0.35,
           ease: "power3.out",
         });
 
         const yTo = gsap.quickTo(button, "y", {
-          duration: 0.45,
+          duration: 0.35,
           ease: "power3.out",
         });
 
         const enter = () => {
           gsap.to(button, {
-            scale: 1.035,
-            duration: 0.3,
-            ease: "power2.out",
+            scale: 1.03,
+            duration: 0.25,
           });
         };
 
         const move = (event) => {
+          if (window.innerWidth < 768) return;
+
           const rect = button.getBoundingClientRect();
 
           const x =
@@ -333,8 +312,8 @@ export default function Hero() {
             event.clientY -
             (rect.top + rect.height / 2);
 
-          xTo(x * 0.16);
-          yTo(y * 0.16);
+          xTo(x * 0.12);
+          yTo(y * 0.12);
         };
 
         const leave = () => {
@@ -343,8 +322,7 @@ export default function Hero() {
 
           gsap.to(button, {
             scale: 1,
-            duration: 0.45,
-            ease: "power3.out",
+            duration: 0.35,
           });
         };
 
@@ -352,7 +330,7 @@ export default function Hero() {
         button.addEventListener("mousemove", move);
         button.addEventListener("mouseleave", leave);
 
-        button._heroCleanup = () => {
+        button._cleanup = () => {
           button.removeEventListener("mouseenter", enter);
           button.removeEventListener("mousemove", move);
           button.removeEventListener("mouseleave", leave);
@@ -360,13 +338,13 @@ export default function Hero() {
       });
 
       /* =========================================================
-         IMAGE CARD TILT
+         IMAGE TILT
       ========================================================= */
 
       const visual = visualRef.current;
 
-      const handleVisualMove = (event) => {
-        if (window.innerWidth < 768 || reduceMotion) return;
+      const visualMove = (event) => {
+        if (!visual || window.innerWidth < 768 || reduceMotion) return;
 
         const rect = visual.getBoundingClientRect();
 
@@ -381,24 +359,24 @@ export default function Hero() {
           rect.height;
 
         gsap.to(".hero-image-card", {
-          rotateY: x * 8,
-          rotateX: -y * 8,
+          rotateY: x * 6,
+          rotateX: -y * 6,
+          duration: 0.6,
+          ease: "power3.out",
+        });
+      };
+
+      const visualLeave = () => {
+        gsap.to(".hero-image-card", {
+          rotateY: 0,
+          rotateX: 0,
           duration: 0.7,
           ease: "power3.out",
         });
       };
 
-      const handleVisualLeave = () => {
-        gsap.to(".hero-image-card", {
-          rotateY: 0,
-          rotateX: 0,
-          duration: 0.8,
-          ease: "power3.out",
-        });
-      };
-
-      visual.addEventListener("mousemove", handleVisualMove);
-      visual.addEventListener("mouseleave", handleVisualLeave);
+      visual.addEventListener("mousemove", visualMove);
+      visual.addEventListener("mouseleave", visualLeave);
 
       /* =========================================================
          CLEANUP
@@ -412,16 +390,16 @@ export default function Hero() {
 
         visual.removeEventListener(
           "mousemove",
-          handleVisualMove
+          visualMove
         );
 
         visual.removeEventListener(
           "mouseleave",
-          handleVisualLeave
+          visualLeave
         );
 
-        magneticButtons.forEach((button) => {
-          button._heroCleanup?.();
+        buttons.forEach((button) => {
+          button._cleanup?.();
         });
       };
     }, root);
@@ -444,104 +422,88 @@ export default function Hero() {
       className="
         hero-section
         relative
-        min-h-screen
+        min-h-[100svh]
         overflow-hidden
         bg-[#f4f0e8]
         text-[#111827]
-        selection:bg-[#c99a3d]
-        selection:text-white
       "
     >
+
       {/* =====================================================
           BACKGROUND
       ===================================================== */}
 
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="pointer-events-none absolute inset-0">
 
         <img
           ref={imageRef}
-          src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=2200&q=90"
+          src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=2200&q=90"
           alt="International conference"
           className="
             hero-background-image
             absolute
-            inset-[-8%]
-            h-[116%]
-            w-[116%]
+            inset-[-6%]
+            h-[112%]
+            w-[112%]
             object-cover
-            opacity-[0.13]
+            opacity-[0.1]
             grayscale
           "
         />
 
-        {/* Cream overlay */}
+        <div
+          className="
+            absolute
+            inset-0
+            bg-[#f4f0e8]/95
+          "
+        />
 
         <div
           className="
             absolute
             inset-0
-            bg-[#f4f0e8]/90
+            bg-[radial-gradient(circle_at_80%_35%,rgba(201,154,61,.12),transparent_42%)]
           "
         />
-
-        {/* Right-side warm gradient */}
-
-        <div
-          className="
-            absolute
-            right-0
-            top-0
-            h-full
-            w-[65%]
-            bg-[radial-gradient(circle_at_70%_45%,rgba(201,154,61,.13),transparent_55%)]
-          "
-        />
-
-        {/* Editorial grid */}
 
         <div
           className="
             absolute
             inset-0
-            opacity-[0.07]
+            opacity-[0.05]
             bg-[linear-gradient(to_right,#111827_1px,transparent_1px),linear-gradient(to_bottom,#111827_1px,transparent_1px)]
-            bg-[size:90px_90px]
+            bg-[size:70px_70px]
           "
         />
-
-        {/* Large decorative circle */}
 
         <div
           className="
             absolute
-            -right-[18vw]
-            top-[10vh]
-            h-[65vw]
-            w-[65vw]
+            right-[-25vw]
+            top-[15%]
+            h-[100vw]
+            w-[100vw]
             max-h-[850px]
             max-w-[850px]
             rounded-full
             border
-            border-[#111827]/[0.08]
+            border-[#111827]/[0.06]
           "
         />
 
         <div
           className="
             absolute
-            -right-[10vw]
-            top-[18vh]
-            h-[48vw]
-            w-[48vw]
-            max-h-[620px]
-            max-w-[620px]
+            -left-[200px]
+            -top-[200px]
+            h-[400px]
+            w-[400px]
             rounded-full
-            border
-            border-[#c99a3d]/20
+            bg-[#c99a3d]/10
+            blur-[100px]
           "
         />
-
-        {/* Mouse glow */}
 
         <div
           ref={glowRef}
@@ -553,9 +515,10 @@ export default function Hero() {
             w-[500px]
             rounded-full
             bg-[#c99a3d]/10
-            blur-[110px]
+            blur-[100px]
           "
         />
+
       </div>
 
       {/* =====================================================
@@ -566,40 +529,58 @@ export default function Hero() {
         className="
           relative
           z-30
-          px-6
-          pt-6
+          px-5
+          pt-5
+          sm:px-6
+          sm:pt-6
           md:px-10
           lg:px-14
-          lg:pt-7
         "
       >
+
         <div className="flex items-center justify-between">
 
-          <div className="flex items-center gap-4">
+          <div className="flex min-w-0 items-center gap-3">
 
-            <div className="relative flex h-7 w-7 items-center justify-center">
+            <div
+              className="
+                relative
+                flex
+                h-6
+                w-6
+                shrink-0
+                items-center
+                justify-center
+                sm:h-7
+                sm:w-7
+              "
+            >
               <span className="absolute h-2 w-2 rounded-full bg-[#c99a3d]" />
 
               <span
                 className="
                   absolute
-                  h-6
-                  w-6
+                  h-5
+                  w-5
                   rounded-full
                   border
                   border-[#c99a3d]/40
+                  sm:h-6
+                  sm:w-6
                 "
               />
             </div>
 
             <span
               className="
-                text-[10px]
+                truncate
+                text-[9px]
                 font-bold
                 uppercase
-                tracking-[0.3em]
-                text-[#111827]/65
-                md:text-xs
+                tracking-[0.18em]
+                text-[#111827]/60
+                sm:text-[10px]
+                sm:tracking-[0.25em]
               "
             >
               ICAEBMS / 2026
@@ -607,66 +588,54 @@ export default function Hero() {
 
           </div>
 
-          <div
+          <span
             className="
-              hidden
-              text-[9px]
-              font-medium
-              uppercase
-              tracking-[0.3em]
-              text-[#111827]/40
-              md:block
-            "
-          >
-            International Conference
-          </div>
-
-          <div
-            className="
-              flex
-              items-center
-              gap-3
-              text-[9px]
+              ml-3
+              shrink-0
+              text-[8px]
               font-bold
               uppercase
-              tracking-[0.25em]
+              tracking-[0.16em]
               text-[#9b7427]
-              md:text-[10px]
+              sm:text-[9px]
+              sm:tracking-[0.22em]
             "
           >
             Hybrid Event
+          </span>
 
-            <span className="h-1.5 w-1.5 rounded-full bg-[#c99a3d]" />
-          </div>
         </div>
 
         <div
           className="
             hero-top-line
-            mt-5
+            mt-4
             h-px
-            w-full
             bg-[#111827]/15
+            sm:mt-5
           "
         />
+
       </header>
 
       {/* =====================================================
-          MAIN HERO
+          MAIN
       ===================================================== */}
 
-      <div
+      <main
         className="
           hero-main
           relative
           z-20
-          flex
-          min-h-[calc(100vh-120px)]
-          items-center
-          px-6
-          py-14
+          px-5
+          pb-32
+          pt-10
+          sm:px-6
+          sm:pb-36
+          sm:pt-12
           md:px-10
-          md:py-20
+          md:pb-40
+          md:pt-16
           lg:px-14
           lg:py-16
         "
@@ -683,56 +652,65 @@ export default function Hero() {
           <div
             className="
               grid
+              grid-cols-1
               items-center
-              gap-14
-              lg:grid-cols-[1.15fr_.85fr]
+              gap-12
+              md:gap-16
+              lg:grid-cols-[1.3fr_.7fr]
+              xl:grid-cols-[1.25fr_.75fr]
               lg:gap-20
             "
           >
 
             {/* =================================================
-                LEFT
+                LEFT CONTENT
             ================================================= */}
 
-            <div>
+            <div className="min-w-0">
 
               {/* KICKER */}
 
               <div
                 className="
                   hero-kicker
-                  mb-8
+                  mb-6
                   flex
                   flex-wrap
                   items-center
-                  gap-4
+                  gap-3
+                  sm:mb-8
+                  sm:gap-4
                 "
               >
 
                 <span
                   className="
-                    inline-flex
+                    flex
                     items-center
                     gap-2
-                    text-[10px]
+                    text-[8px]
                     font-bold
                     uppercase
-                    tracking-[0.3em]
+                    tracking-[0.22em]
                     text-[#9b7427]
+                    sm:text-[10px]
+                    sm:tracking-[0.28em]
                     md:text-xs
                   "
                 >
-                  <span className="h-px w-8 bg-[#c99a3d]" />
+                  <span className="h-px w-5 bg-[#c99a3d] sm:w-7" />
 
                   Global Academic Platform
                 </span>
 
                 <span
                   className="
-                    text-[9px]
+                    text-[8px]
                     uppercase
-                    tracking-[0.2em]
+                    tracking-[0.14em]
                     text-[#111827]/35
+                    sm:text-[9px]
+                    sm:tracking-[0.2em]
                   "
                 >
                   {conference?.edition || "ICAEBMS-2026"}
@@ -742,51 +720,46 @@ export default function Hero() {
 
               {/* =================================================
                   TITLE
-
-                  IMPORTANT:
-                  The wrapper has controlled clipping and
-                  sufficient padding so GSAP never cuts letters.
               ================================================= */}
 
-              <div
-                ref={titleRef}
-                className="
-                  hero-title
-                  max-w-[1050px]
-                  [perspective:1000px]
-                "
-              >
+              <div className="hero-title w-full max-w-[100%] lg:max-w-[950px] xl:max-w-[1100px]">
 
-                {/* Line 1 */}
+                {/* 1 */}
 
                 <div
                   className="
                     hero-title-line
+                    w-full
                     overflow-hidden
-                    pb-[0.08em]
+                    py-[0.08em]
                   "
                 >
                   <div
                     className="
                       hero-title-inner
                       block
-                      text-[clamp(3.5rem,8.5vw,8.8rem)]
+                      break-words
+                      text-[clamp(2rem,8vw,7rem)]
                       font-black
-                      leading-[0.91]
-                      tracking-[-0.065em]
+                      leading-[0.98]
+                      tracking-[-0.055em]
+                      sm:text-[clamp(2.5rem,7vw,7rem)]
+                      md:text-[clamp(3rem,6.5vw,7rem)]
+                      lg:text-[clamp(3.5rem,5.5vw,7rem)]
                     "
                   >
                     Interdisciplinary
                   </div>
                 </div>
 
-                {/* Line 2 */}
+                {/* 2 */}
 
                 <div
                   className="
                     hero-title-line
+                    w-full
                     overflow-hidden
-                    pb-[0.08em]
+                    py-[0.08em]
                   "
                 >
                   <div
@@ -794,44 +767,57 @@ export default function Hero() {
                       hero-title-inner
                       title-accent
                       block
-                      text-[clamp(3.5rem,8.5vw,8.8rem)]
-                      font-black
-                      leading-[0.91]
-                      tracking-[-0.065em]
-                      text-transparent
-                      bg-clip-text
+                      break-words
                       bg-gradient-to-r
                       from-[#9b7427]
                       via-[#d2a94e]
                       to-[#9b7427]
+                      bg-clip-text
+                      text-[clamp(2rem,8vw,7rem)]
+                      font-black
+                      leading-[0.95]
+                      tracking-[-0.065em]
+                      text-transparent
+                      sm:text-[clamp(2.5rem,7vw,7rem)]
+                      md:text-[clamp(3rem,6.5vw,7rem)]
+                      lg:text-[clamp(3.5rem,5.5vw,7rem)]
                     "
                   >
                     Innovations
                   </div>
                 </div>
 
-                {/* Line 3 */}
+                {/* 3 */}
 
                 <div
                   className="
                     hero-title-line
+                    w-full
                     overflow-hidden
-                    pb-[0.08em]
+                    py-[0.08em]
                   "
                 >
                   <div
                     className="
                       hero-title-inner
                       flex
+                      w-full
                       flex-wrap
                       items-baseline
-                      gap-x-4
-                      text-[clamp(3.5rem,8.5vw,8.8rem)]
+                      gap-x-2
+                      gap-y-1
+                      text-[clamp(2rem,8vw,7rem)]
                       font-black
-                      leading-[0.91]
+                      leading-[0.95]
                       tracking-[-0.065em]
+                      sm:gap-x-3
+                      sm:text-[clamp(2.5rem,7vw,7rem)]
+                      md:gap-x-4
+                      md:text-[clamp(3rem,6.5vw,7rem)]
+                      lg:text-[clamp(3.5rem,5.5vw,7rem)]
                     "
                   >
+
                     <span>for a</span>
 
                     <span
@@ -844,67 +830,79 @@ export default function Hero() {
                     >
                       Sustainable
                     </span>
+
                   </div>
                 </div>
 
-                {/* Line 4 */}
+                {/* 4 */}
 
                 <div
                   className="
                     hero-title-line
+                    w-full
                     overflow-hidden
-                    pb-[0.08em]
+                    py-[0.08em]
                   "
                 >
                   <div
                     className="
                       hero-title-inner
                       block
-                      text-[clamp(3.5rem,8.5vw,8.8rem)]
+                      text-[clamp(2rem,8vw,7rem)]
                       font-black
-                      leading-[0.91]
+                      leading-[0.95]
                       tracking-[-0.065em]
+                      sm:text-[clamp(2.5rem,7vw,7rem)]
+                      md:text-[clamp(3rem,6.5vw,7rem)]
+                      lg:text-[clamp(3.5rem,5.5vw,7rem)]
                     "
                   >
-                    Future
-                    <span className="text-[#c99a3d]">.</span>
+                    Future<span className="text-[#c99a3d]">.</span>
                   </div>
                 </div>
 
               </div>
 
-              {/* DESCRIPTION */}
+              {/* =================================================
+                  DESCRIPTION
+              ================================================= */}
 
               <p
                 className="
                   hero-description
-                  mt-9
+                  mt-7
                   max-w-2xl
-                  text-sm
-                  font-normal
-                  leading-7
+                  text-[13px]
+                  leading-6
                   text-[#111827]/55
+                  sm:mt-8
+                  sm:text-sm
+                  sm:leading-7
+                  md:mt-9
                   md:text-[15px]
-                  md:leading-7
                 "
               >
                 {conference?.name ||
                   "International Conference on Applied Science, Engineering, Education, Business, Management and Social Science & Humanities"}
               </p>
 
-              {/* ACTIONS */}
+              {/* =================================================
+                  BUTTONS
+              ================================================= */}
 
               <div
                 className="
                   hero-actions
-                  mt-9
+                  mt-7
                   flex
-                  flex-wrap
+                  w-full
+                  flex-col
                   gap-3
+                  sm:mt-8
+                  sm:flex-row
+                  sm:flex-wrap
                 "
               >
-
-                {/* PRIMARY */}
 
                 <button
                   onClick={() => jumpTo("cta")}
@@ -912,17 +910,26 @@ export default function Hero() {
                     magnetic
                     group
                     relative
+                    flex
+                    min-h-[48px]
+                    w-full
+                    items-center
+                    justify-center
                     overflow-hidden
                     rounded-full
                     bg-[#111827]
-                    px-7
-                    py-4
-                    text-xs
+                    px-6
+                    py-3.5
+                    text-[10px]
                     font-bold
                     uppercase
-                    tracking-[0.15em]
+                    tracking-[0.14em]
                     text-white
-                    shadow-[0_15px_40px_rgba(17,24,39,.18)]
+                    shadow-[0_15px_40px_rgba(17,24,39,.15)]
+                    sm:w-auto
+                    sm:min-h-[52px]
+                    sm:px-7
+                    sm:text-xs
                   "
                 >
 
@@ -937,14 +944,7 @@ export default function Hero() {
                   >
                     Submit Your Paper
 
-                    <span
-                      className="
-                        text-[#c99a3d]
-                        transition-transform
-                        duration-300
-                        group-hover:translate-x-1
-                      "
-                    >
+                    <span className="text-[#c99a3d]">
                       ↗
                     </span>
                   </span>
@@ -957,14 +957,11 @@ export default function Hero() {
                       bg-[#c99a3d]
                       transition-transform
                       duration-500
-                      ease-out
                       group-hover:translate-y-0
                     "
                   />
 
                 </button>
-
-                {/* SECONDARY */}
 
                 <button
                   onClick={() => jumpTo("about")}
@@ -972,25 +969,30 @@ export default function Hero() {
                     magnetic
                     group
                     flex
+                    min-h-[48px]
+                    w-full
                     items-center
-                    gap-4
+                    justify-center
+                    gap-3
                     rounded-full
                     border
                     border-[#111827]/15
-                    bg-white/35
-                    px-7
-                    py-4
-                    text-xs
+                    bg-white/40
+                    px-6
+                    py-3.5
+                    text-[10px]
                     font-bold
                     uppercase
-                    tracking-[0.15em]
+                    tracking-[0.14em]
                     text-[#111827]/75
                     backdrop-blur-md
-                    transition-colors
-                    duration-300
-                    hover:bg-white/70
+                    sm:w-auto
+                    sm:min-h-[52px]
+                    sm:px-7
+                    sm:text-xs
                   "
                 >
+
                   Explore Conference
 
                   <span
@@ -1010,32 +1012,32 @@ export default function Hero() {
                   >
                     →
                   </span>
+
                 </button>
 
               </div>
 
-              {/* SMALL ORGANIZER LINE */}
+              {/* ORGANIZER */}
 
               <div
                 className="
-                  mt-8
-                  flex
-                  flex-wrap
-                  items-center
-                  gap-3
-                  text-[9px]
+                  mt-6
+                  max-w-xl
+                  text-[8px]
                   uppercase
-                  tracking-[0.22em]
+                  leading-5
+                  tracking-[0.15em]
                   text-[#111827]/35
+                  sm:mt-7
+                  sm:text-[9px]
+                  sm:tracking-[0.18em]
                 "
               >
-                <span>Organized by</span>
-
-                <span className="font-bold text-[#111827]/60">
+                Organized by{" "}
+                <span className="font-bold text-[#111827]/55">
                   Confworld Educational Research and Development
                   Association
                 </span>
-
               </div>
 
             </div>
@@ -1051,90 +1053,74 @@ export default function Hero() {
                 relative
                 mx-auto
                 w-full
-                max-w-[550px]
+                max-w-[500px]
                 lg:ml-auto
               "
             >
 
-              {/* Decorative vertical label */}
-
-              <div
-                className="
-                  absolute
-                  -left-8
-                  top-1/2
-                  z-20
-                  hidden
-                  -translate-y-1/2
-                  -rotate-90
-                  text-[9px]
-                  font-bold
-                  uppercase
-                  tracking-[0.35em]
-                  text-[#111827]/35
-                  lg:block
-                "
-              >
-                International / 2026
-              </div>
-
-              {/* IMAGE CARD */}
+              {/* CARD */}
 
               <div
                 className="
                   hero-image-card
                   relative
                   mx-auto
-                  aspect-[0.78]
-                  w-[78%]
-                  max-w-[410px]
+                  w-[76%]
+                  max-w-[390px]
                   overflow-hidden
-                  rounded-[2rem]
+                  rounded-[1.5rem]
                   border
-                  border-white/70
-                  bg-white/50
-                  shadow-[0_35px_100px_rgba(17,24,39,.16)]
+                  border-white/80
+                  bg-white/40
+                  shadow-[0_25px_70px_rgba(17,24,39,.14)]
                   [transform-style:preserve-3d]
+                  sm:rounded-[2rem]
+                  sm:w-[72%]
                 "
               >
 
-                <img
-                  src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1200&q=90"
-                  alt="Conference audience"
-                  className="
-                    absolute
-                    inset-0
-                    h-full
-                    w-full
-                    object-cover
-                    grayscale-[20%]
-                  "
-                />
+                <div className="aspect-[0.78]">
 
-                {/* Image overlay */}
+                  <img
+                    src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1200&q=90"
+                    alt="Conference audience"
+                    className="
+                      absolute
+                      inset-0
+                      h-full
+                      w-full
+                      object-cover
+                      grayscale-[20%]
+                    "
+                  />
+
+                  <div
+                    className="
+                      absolute
+                      inset-0
+                      bg-gradient-to-t
+                      from-[#111827]/90
+                      via-[#111827]/20
+                      to-transparent
+                    "
+                  />
+
+                </div>
+
+                {/* TOP */}
 
                 <div
                   className="
                     absolute
-                    inset-0
-                    bg-gradient-to-t
-                    from-[#111827]/90
-                    via-[#111827]/20
-                    to-transparent
-                  "
-                />
-
-                {/* Top label */}
-
-                <div
-                  className="
-                    absolute
-                    left-5
-                    right-5
-                    top-5
+                    left-4
+                    right-4
+                    top-4
                     flex
                     items-center
                     justify-between
+                    sm:left-5
+                    sm:right-5
+                    sm:top-5
                   "
                 >
 
@@ -1144,14 +1130,16 @@ export default function Hero() {
                       border
                       border-white/25
                       bg-black/15
-                      px-3
+                      px-2.5
                       py-1.5
-                      text-[8px]
+                      text-[7px]
                       font-bold
                       uppercase
-                      tracking-[0.25em]
+                      tracking-[0.2em]
                       text-white/80
                       backdrop-blur-md
+                      sm:px-3
+                      sm:text-[8px]
                     "
                   >
                     Hybrid Event
@@ -1159,10 +1147,10 @@ export default function Hero() {
 
                   <span
                     className="
-                      text-[9px]
+                      text-[8px]
                       font-bold
                       uppercase
-                      tracking-[0.2em]
+                      tracking-[0.15em]
                       text-white/70
                     "
                   >
@@ -1171,47 +1159,53 @@ export default function Hero() {
 
                 </div>
 
-                {/* Bottom content */}
+                {/* BOTTOM */}
 
                 <div
                   className="
                     absolute
-                    bottom-6
-                    left-6
-                    right-6
+                    bottom-5
+                    left-5
+                    right-5
                     text-white
+                    sm:bottom-6
+                    sm:left-6
+                    sm:right-6
                   "
                 >
 
                   <div
                     className="
-                      mb-3
+                      mb-2
                       flex
                       items-center
                       gap-2
                     "
                   >
+
                     <span className="h-1.5 w-1.5 rounded-full bg-[#d5ab50]" />
 
                     <span
                       className="
-                        text-[9px]
+                        text-[7px]
                         font-bold
                         uppercase
-                        tracking-[0.25em]
+                        tracking-[0.18em]
                         text-white/60
+                        sm:text-[8px]
                       "
                     >
                       Bangkok, Thailand
                     </span>
+
                   </div>
 
                   <h3
                     className="
                       text-3xl
-                      font-bold
-                      tracking-[-0.04em]
-                      md:text-4xl
+                      font-black
+                      tracking-[-0.05em]
+                      sm:text-4xl
                     "
                   >
                     10—11
@@ -1220,10 +1214,11 @@ export default function Hero() {
                   <p
                     className="
                       mt-1
-                      text-[10px]
+                      text-[8px]
                       uppercase
-                      tracking-[0.3em]
+                      tracking-[0.2em]
                       text-white/55
+                      sm:text-[9px]
                     "
                   >
                     August 2026
@@ -1234,34 +1229,41 @@ export default function Hero() {
               </div>
 
               {/* =================================================
-                  FLOATING DATE CARD
+                  DATE CARD
               ================================================= */}
 
               <div
                 className="
                   absolute
-                  -bottom-7
+                  -bottom-5
                   left-0
-                  z-30
-                  w-[180px]
-                  rounded-2xl
+                  z-20
+                  w-[140px]
+                  rounded-xl
                   border
                   border-[#111827]/10
                   bg-[#f8f5ee]/95
-                  p-5
-                  shadow-[0_20px_50px_rgba(17,24,39,.12)]
+                  p-4
+                  shadow-[0_15px_40px_rgba(17,24,39,.1)]
                   backdrop-blur-xl
-                  md:-left-8
+                  sm:-left-2
+                  sm:-bottom-6
+                  sm:w-[165px]
+                  sm:rounded-2xl
+                  sm:p-5
+                  md:-left-5
                 "
               >
 
                 <div
                   className="
-                    text-[8px]
+                    text-[7px]
                     font-bold
                     uppercase
-                    tracking-[0.3em]
+                    tracking-[0.25em]
                     text-[#9b7427]
+                    sm:text-[8px]
+                    sm:tracking-[0.3em]
                   "
                 >
                   Conference
@@ -1269,11 +1271,12 @@ export default function Hero() {
 
                 <div
                   className="
-                    mt-2
-                    text-2xl
+                    mt-1
+                    text-xl
                     font-black
                     tracking-[-0.05em]
-                    text-[#111827]
+                    sm:mt-2
+                    sm:text-2xl
                   "
                 >
                   2026
@@ -1281,11 +1284,12 @@ export default function Hero() {
 
                 <div
                   className="
-                    mt-1
-                    text-[9px]
+                    mt-0.5
+                    text-[7px]
                     uppercase
-                    tracking-[0.18em]
+                    tracking-[0.14em]
                     text-[#111827]/40
+                    sm:text-[8px]
                   "
                 >
                   10—11 August
@@ -1294,25 +1298,27 @@ export default function Hero() {
               </div>
 
               {/* =================================================
-                  FLOATING LOCATION CARD
+                  LOCATION CARD
               ================================================= */}
 
               <div
                 className="
                   absolute
-                  -right-3
-                  top-[18%]
-                  z-30
+                  -right-1
+                  top-[15%]
+                  z-20
                   hidden
-                  w-[145px]
-                  rounded-2xl
-                  border
-                  border-[#111827]/10
+                  w-[125px]
+                  rounded-xl
                   bg-[#111827]
-                  p-4
+                  p-3.5
                   text-white
-                  shadow-[0_20px_50px_rgba(17,24,39,.18)]
-                  md:block
+                  shadow-[0_15px_40px_rgba(17,24,39,.14)]
+                  sm:block
+                  sm:w-[135px]
+                  sm:rounded-2xl
+                  sm:p-4
+                  md:-right-2
                 "
               >
 
@@ -1321,9 +1327,9 @@ export default function Hero() {
                     flex
                     items-center
                     gap-2
-                    text-[8px]
+                    text-[7px]
                     uppercase
-                    tracking-[0.25em]
+                    tracking-[0.2em]
                     text-white/45
                   "
                 >
@@ -1332,21 +1338,15 @@ export default function Hero() {
                   Location
                 </div>
 
-                <div
-                  className="
-                    mt-2
-                    text-sm
-                    font-bold
-                  "
-                >
+                <div className="mt-2 text-sm font-bold">
                   Bangkok
                 </div>
 
                 <div
                   className="
-                    text-[9px]
+                    text-[8px]
                     uppercase
-                    tracking-[0.18em]
+                    tracking-[0.14em]
                     text-white/40
                   "
                 >
@@ -1355,25 +1355,23 @@ export default function Hero() {
 
               </div>
 
-              {/* =================================================
-                  ORBIT
-              ================================================= */}
+              {/* DECORATIONS */}
 
               <div
                 className="
                   pointer-events-none
                   absolute
-                  -right-3
-                  -top-5
-                  h-24
-                  w-24
+                  -right-2
+                  -top-3
+                  h-16
+                  w-16
                   rounded-full
                   border
-                  border-[#c99a3d]/30
-                  md:-right-8
-                  md:-top-8
-                  md:h-32
-                  md:w-32
+                  border-[#c99a3d]/35
+                  sm:-right-4
+                  sm:-top-5
+                  sm:h-24
+                  sm:w-24
                 "
               />
 
@@ -1381,52 +1379,52 @@ export default function Hero() {
                 className="
                   pointer-events-none
                   absolute
-                  -right-3
-                  -top-5
-                  h-24
-                  w-24
+                  -right-2
+                  -top-3
+                  h-16
+                  w-16
                   rounded-full
                   border
                   border-dashed
                   border-[#111827]/10
-                  md:-right-8
-                  md:-top-8
-                  md:h-32
-                  md:w-32
+                  sm:-right-4
+                  sm:-top-5
+                  sm:h-24
+                  sm:w-24
                 "
               />
 
               <div
                 className="
                   hero-pulse
-                  pointer-events-none
                   absolute
-                  right-[18%]
+                  right-[16%]
                   top-[4%]
-                  h-3
-                  w-3
+                  h-2.5
+                  w-2.5
                   rounded-full
                   bg-[#c99a3d]
+                  sm:h-3
+                  sm:w-3
                 "
               />
 
-              {/* Large background number */}
-
               <div
                 className="
-                  hero-image-number
                   pointer-events-none
                   absolute
-                  bottom-[-55px]
-                  right-[-15px]
+                  bottom-[-40px]
+                  right-[-5px]
                   z-[-1]
                   select-none
-                  text-[10rem]
+                  text-[8rem]
                   font-black
                   leading-none
                   tracking-[-0.12em]
                   text-[#111827]/[0.035]
-                  md:text-[14rem]
+                  sm:bottom-[-55px]
+                  sm:right-[-15px]
+                  sm:text-[12rem]
                 "
               >
                 26
@@ -1436,10 +1434,10 @@ export default function Hero() {
 
           </div>
         </div>
-      </div>
+      </main>
 
       {/* =====================================================
-          BOTTOM INFORMATION RAIL
+          BOTTOM RAIL
       ===================================================== */}
 
       <div
@@ -1452,7 +1450,7 @@ export default function Hero() {
           z-30
           border-t
           border-[#111827]/10
-          bg-[#f4f0e8]/75
+          bg-[#f4f0e8]/90
           backdrop-blur-xl
         "
       >
@@ -1467,14 +1465,14 @@ export default function Hero() {
           "
         >
 
-          {/* DATE */}
-
           <div
             className="
               border-r
               border-[#111827]/10
-              px-6
-              py-4
+              px-5
+              py-3
+              sm:px-6
+              sm:py-4
               md:px-10
               md:py-5
             "
@@ -1483,11 +1481,13 @@ export default function Hero() {
               className="
                 mb-1
                 block
-                text-[8px]
+                text-[7px]
                 font-bold
                 uppercase
-                tracking-[0.3em]
+                tracking-[0.22em]
                 text-[#111827]/35
+                sm:text-[8px]
+                sm:tracking-[0.3em]
               "
             >
               Date
@@ -1495,9 +1495,11 @@ export default function Hero() {
 
             <span
               className="
-                text-xs
+                block
+                truncate
+                text-[10px]
                 font-bold
-                text-[#111827]
+                sm:text-xs
                 md:text-sm
               "
             >
@@ -1505,14 +1507,14 @@ export default function Hero() {
             </span>
           </div>
 
-          {/* LOCATION */}
-
           <div
             className="
               border-r
               border-[#111827]/10
-              px-6
-              py-4
+              px-5
+              py-3
+              sm:px-6
+              sm:py-4
               md:px-10
               md:py-5
             "
@@ -1521,11 +1523,13 @@ export default function Hero() {
               className="
                 mb-1
                 block
-                text-[8px]
+                text-[7px]
                 font-bold
                 uppercase
-                tracking-[0.3em]
+                tracking-[0.22em]
                 text-[#111827]/35
+                sm:text-[8px]
+                sm:tracking-[0.3em]
               "
             >
               Location
@@ -1533,17 +1537,17 @@ export default function Hero() {
 
             <span
               className="
-                text-xs
+                block
+                truncate
+                text-[10px]
                 font-bold
-                text-[#111827]
+                sm:text-xs
                 md:text-sm
               "
             >
               {conference?.location || "Bangkok, Thailand"}
             </span>
           </div>
-
-          {/* FORMAT */}
 
           <div
             className="
@@ -1571,24 +1575,17 @@ export default function Hero() {
               Format
             </span>
 
-            <span
-              className="
-                text-xs
-                font-bold
-                text-[#111827]
-                md:text-sm
-              "
-            >
+            <span className="text-sm font-bold">
               In-Person + Online
             </span>
           </div>
 
-          {/* HOST */}
-
           <div
             className="
-              px-6
-              py-4
+              px-5
+              py-3
+              sm:px-6
+              sm:py-4
               md:px-10
               md:py-5
             "
@@ -1597,11 +1594,13 @@ export default function Hero() {
               className="
                 mb-1
                 block
-                text-[8px]
+                text-[7px]
                 font-bold
                 uppercase
-                tracking-[0.3em]
+                tracking-[0.22em]
                 text-[#111827]/35
+                sm:text-[8px]
+                sm:tracking-[0.3em]
               "
             >
               Host
@@ -1609,9 +1608,9 @@ export default function Hero() {
 
             <span
               className="
-                text-xs
+                text-[10px]
                 font-bold
-                text-[#111827]
+                sm:text-xs
                 md:text-sm
               "
             >
@@ -1623,12 +1622,11 @@ export default function Hero() {
       </div>
 
       {/* =====================================================
-          SCROLL INDICATOR
+          DESKTOP SCROLL
       ===================================================== */}
 
       <div
         className="
-          hero-scroll
           absolute
           bottom-28
           right-6
@@ -1664,7 +1662,6 @@ export default function Hero() {
             bg-[#111827]/15
           "
         >
-
           <div
             className="
               absolute
@@ -1676,35 +1673,9 @@ export default function Hero() {
               animate-[heroScroll_1.8s_ease-in-out_infinite]
             "
           />
-
         </div>
+
       </div>
-
-      {/* =====================================================
-          MOBILE DATE LABEL
-      ===================================================== */}
-
-      <div
-        className="
-          absolute
-          bottom-3
-          left-1/2
-          z-40
-          -translate-x-1/2
-          text-[8px]
-          font-bold
-          uppercase
-          tracking-[0.3em]
-          text-[#111827]/30
-          md:hidden
-        "
-      >
-        ICAEBMS — Bangkok 2026
-      </div>
-
-      {/* =====================================================
-          INLINE ANIMATION
-      ===================================================== */}
 
       <style>{`
         @keyframes heroScroll {
@@ -1724,6 +1695,54 @@ export default function Hero() {
         @media (max-width: 767px) {
           .hero-section {
             min-height: 100svh;
+            width: 100%;
+          }
+
+          .hero-main {
+            width: 100%;
+          }
+
+          .hero-title {
+            width: 100%;
+            max-width: 100%;
+          }
+
+          .hero-title-line {
+            width: 100%;
+            max-width: 100%;
+          }
+
+          .hero-title-inner {
+            max-width: 100%;
+            white-space: normal;
+            overflow-wrap: break-word;
+            word-break: break-word;
+          }
+
+          .hero-description {
+            width: 100%;
+            max-width: 100%;
+          }
+
+          .hero-visual {
+            width: 100%;
+            max-width: 100%;
+          }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .hero-title-inner {
+            white-space: normal;
+            overflow-wrap: break-word;
+            word-break: break-word;
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .hero-title-inner {
+            white-space: normal;
+            overflow-wrap: break-word;
+            word-break: break-word;
           }
         }
 
